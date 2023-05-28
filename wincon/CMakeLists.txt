@@ -1,5 +1,22 @@
 cmake_minimum_required(VERSION 3.13)
 set(PDCURSESLIB PDCursesWinCon)
+
+if(WIN32)
+set(WINCON_BUILD ON)
+endif()
+#支持MSYS编译
+if(MSYS)
+set(WINCON_BUILD ON)
+endif()
+#支持CYGWIN编译
+if(CYGWIN)
+set(WINCON_BUILD ON)
+endif()
+if(NOT WINCON_BUILD)
+message(FATAL_ERROR 只支持Windows)
+endif()
+
+
 project(${PDCURSESLIB} C CXX ASM)
 file(GLOB PD_C_FILES pd*.c)
 add_library(${PDCURSESLIB}  ${PD_C_FILES})
